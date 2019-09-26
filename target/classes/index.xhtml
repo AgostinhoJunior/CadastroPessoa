@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f = "http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Cadastro de Pessoas</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+
+	<div class="container">
+        
+        <h:form>
+        
+	        <h:outputLabel value="Nome " for="nome" />
+	        <h:inputText
+	        	id="nome"
+	        	value="#{cadastroPessoaController.pessoa.nome}" 
+	        	pt:placeholder="Informe seu nome" />
+	
+	        <h:outputLabel value="E-mail " for="email" />
+	        <h:inputText
+	        	id="email"
+	        	value="#{cadastroPessoaController.pessoa.email}"
+	        	pt:placeholder="Informe seu e-mail"  />
+	
+	        <h:outputLabel value="Nascimento " for="nascimento" />
+	        <h:inputText
+	        	id="nascimento"
+	        	value="#{cadastroPessoaController.pessoa.nascimento}"
+	        	pt:placeholder="Informe sua data de nascimento" />
+	        
+			<h:commandButton value="Cadastrar" styleClass="cadastrar" 
+				action="#{cadastroPessoaController.cadastrar}" />
+	        
+	        <h:commandButton value="Limpar" styleClass="limpar" 
+	        	action="#{cadastroPessoaController.limpar}" />
+        	
+       	</h:form>
+
+        <hr></hr>
+
+        <table id="dados">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Nascimento</th>
+					<th>Idade</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ui:repeat var="p" value="#{cadastroPessoaController.pessoas}">
+					<tr>
+						<td><h:outputText value="#{p.nome}" /></td>
+						<td><h:outputText value="#{p.email}" /></td>
+						<td><h:outputText value="#{p.nascimento}" /></td>
+						<td>30</td>
+					</tr>
+				</ui:repeat>
+			</tbody>
+		</table>
+
+    </div>
+    
+</h:body>
+
+</html>
