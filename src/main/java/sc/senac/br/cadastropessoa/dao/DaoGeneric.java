@@ -8,6 +8,8 @@ import sc.senac.br.cadastropessoa.jpautil.JPAUtil;
 
 public class DaoGeneric<E> implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private EntityManager entityManager = JPAUtil.getEntityManager();
 
 	public void salvar(E entidade) {
