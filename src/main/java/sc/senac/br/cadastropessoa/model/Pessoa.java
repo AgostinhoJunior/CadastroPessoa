@@ -1,12 +1,18 @@
 package sc.senac.br.cadastropessoa.model;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
+
 public class Pessoa {
 
 	private String nome;
 	
 	private String email;
 	
-	private String nascimento;
+	private Date nascimento;
 
 	public String getNome() {
 		return nome;
@@ -24,12 +30,20 @@ public class Pessoa {
 		this.email = email;
 	}
 
-	public String getNascimento() {
+	public Date getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(String nascimento) {
+	public void setNascimento(Date nascimento) {
 		this.nascimento = nascimento;
 	}
 	
+	public int getIdade() {
+		LocalDate data = Instant
+				.ofEpochMilli(nascimento.getTime())
+				.atZone(ZoneId.systemDefault())
+				.toLocalDate();
+		
+		return Period.between(data, LocalDate.now()).getYears();
+	}
 }
