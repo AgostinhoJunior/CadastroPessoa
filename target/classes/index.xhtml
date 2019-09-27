@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f = "http://java.sun.com/jsf/core"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
@@ -13,82 +13,123 @@
 <h:body>
 
 	<div class="container">
-        
-        
-        <h:form>
-        
-	        <h:outputLabel value="Nome: " for="nome" />
-			<h:message for="nome" errorClass="errorForm"/>
-	        <h:inputText
-	        	id="nome"
-	        	required="true"
+
+
+		<h:form>
+
+			<h:outputLabel value="Nome: " for="nome" />
+			<h:message for="nome" errorClass="errorForm" />
+			<h:inputText id="nome" required="true"
 				requiredMessage="campo com preenchimento obrigatorio!!"
-	        	value="#{cadastroPessoaController.pessoa.nome}" 
-	        	pt:placeholder="Informe seu nome" />
-	
-			
-	        <h:outputLabel value="E-mail: " for="email" />
-	        <h:message for="email" errorClass="errorForm"/>
-	        <h:inputText
-	        	id="email"
-	        	value="#{cadastroPessoaController.pessoa.email}"
-	        	required="true"
+				value="#{cadastroPessoaController.pessoa.nome}"
+				pt:placeholder="Informe seu nome" />
+
+
+			<h:outputLabel value="E-mail: " for="email" />
+			<h:message for="email" errorClass="errorForm" />
+			<h:inputText id="email"
+				value="#{cadastroPessoaController.pessoa.email}" required="true"
 				requiredMessage="campo com preenchimento obrigatorio!!"
-	        	pt:placeholder="Informe seu e-mail"  />
-	
-	        <h:outputLabel value="Nascimento: " for="nascimento" />
-	        <h:message for="nascimento" errorClass="errorForm"/>
-	        <h:inputText
-	        	id="nascimento"
-	        	value="#{cadastroPessoaController.pessoa.nascimento}"
-	        	required="true"
+				pt:placeholder="Informe seu e-mail" />
+
+			<h:outputLabel value="Nascimento: " for="nascimento" />
+			<h:message for="nascimento" errorClass="errorForm" />
+			<h:inputText id="nascimento"
+				value="#{cadastroPessoaController.pessoa.nascimento}"
+				required="true"
 				requiredMessage="campo com preenchimento obrigatorio!!"
 				converterMessage="Data no formato invalido. Use: dd/MM/yyyy"
-	        	pt:placeholder="Informe sua data de nascimento">
-	        	
-	        	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}"/>
-	        	
-	        	</h:inputText>
-	        
-			<h:commandButton value="Cadastrar" styleClass="cadastrar" 
+				pt:placeholder="Informe sua data de nascimento">
+
+				<f:convertDateTime pattern="dd/MM/yyyy"
+					timeZone="#{initParam.timezone}" />
+
+			</h:inputText>
+
+			<h:commandButton value="Cadastrar" styleClass="cadastrar"
 				action="#{cadastroPessoaController.cadastrar}" />
-	        
-	        <h:commandButton value="Limpar" styleClass="limpar" 
-	        	action="#{cadastroPessoaController.limpar}" />
-        	
-       	</h:form>
 
-        <hr></hr>
 
-        <table id="dados">
-			<thead>
-				<tr>
-					<th>Nome</th>
-					<th>E-mail</th>
-					<th>Nascimento</th>
-					<th>Idade</th>
-				</tr>
-			</thead>
-			<tbody>
-				<ui:repeat var="p" value="#{cadastroPessoaController.pessoas}">
-					<tr>
-						<td><h:outputText value="#{p.nome}" /></td>
-						<td><h:outputText value="#{p.email}" /></td>
-						<td>
-							<h:outputText value="#{p.nascimento}" >
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}"/>
-							</h:outputText>
-						</td>
-						
-						<td><h:outputText value="#{p.idade}" /></td>
-						
-					</tr>
-				</ui:repeat>
-			</tbody>
-		</table>
+			<h:commandButton value="Limpar" styleClass="limpar"
+				action="#{cadastroPessoaController.limpar}" />
 
-    </div>
-    
+		</h:form>
+
+		<hr></hr>
+
+		<h:dataTable value="#{cadastroPessoaController.pessoas}" var="p">
+
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+                #{p.id}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+                #{p.nome}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+                #{p.email}
+            </h:column>
+
+			<h:column>
+				<f:facet name="header">Nascimento</f:facet>
+				#{cadastroPessoaController.converteData(p.nascimento)}
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Idade</f:facet>
+				 #{p.idade}
+			</h:column>
+		</h:dataTable>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!--         <table id="dados"> -->
+		<!-- 			<thead> -->
+		<!-- 				<tr> -->
+		<!-- 					<th>Nome</th> -->
+		<!-- 					<th>E-mail</th> -->
+		<!-- 					<th>Nascimento</th> -->
+		<!-- 					<th>Idade</th> -->
+		<!-- 				</tr> -->
+		<!-- 			</thead> -->
+		<!-- 			<tbody> -->
+		<!-- 				<ui:repeat var="p" value="#{cadastroPessoaController.pessoas}"> -->
+		<!-- 					<tr> -->
+		<!-- 						<td><h:outputText value="#{p.nome}" /></td> -->
+		<!-- 						<td><h:outputText value="#{p.email}" /></td> -->
+		<!-- 						<td> -->
+		<!-- 							<h:outputText value="#{p.nascimento}" > -->
+		<!-- 								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}"/> -->
+		<!-- 							</h:outputText> -->
+		<!-- 						</td> -->
+
+		<!-- 						<td><h:outputText value="#{p.idade}" /></td> -->
+
+		<!-- 					</tr> -->
+		<!-- 				</ui:repeat> -->
+		<!-- 			</tbody> -->
+		<!-- 		</table> -->
+
+	</div>
+
 </h:body>
 
 </html>
